@@ -13,6 +13,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- Ruta para el reporte de cobertura de JaCoCo -->
+        <jacoco.report.xml>${project.build.directory}/jacoco-report/jacoco.xml</jacoco.report.xml>
+        <!-- Propiedad requerida por SonarCloud para cobertura -->
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <build>
@@ -21,12 +25,26 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.7</version>
+                <version>0.8.10</version> <!-- Versión más reciente -->
                 <executions>
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal> <!-- Prepara el agente para capturar la cobertura -->
                         </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal> <!-- Genera el reporte de cobertura -->
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/jacoco</outputDirectory>
+                            <dataFile>${project.build.directory}/jacoco/jacoco.exec</dataFile>
+                            <reportsDirectory>${project.build.directory}/jacoco-report</reportsDirectory>
+                            <xml>true</xml> <!-- Generar reporte XML -->
+                            <html>false</html> <!-- Opcional: deshabilita el reporte HTML -->
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -57,13 +75,13 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.9.0</version> <!-- Actualizado a la versión más reciente -->
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.0</version> <!-- Actualizado a la versión más reciente -->
+            <version>5.9.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
