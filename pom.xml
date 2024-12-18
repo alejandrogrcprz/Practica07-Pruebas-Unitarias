@@ -13,10 +13,18 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
         <!-- Ruta para el reporte de cobertura de JaCoCo -->
         <jacoco.report.xml>${project.build.directory}/jacoco-report/jacoco.xml</jacoco.report.xml>
+
         <!-- Propiedad requerida por SonarCloud para cobertura -->
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+
+        <!-- Configuración de SonarCloud -->
+        <sonar.projectKey>your_project_key</sonar.projectKey> <!-- Reemplaza con tu clave de proyecto en SonarCloud -->
+        <sonar.organization>your_organization</sonar.organization> <!-- Reemplaza con tu organización en SonarCloud -->
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.login>your_sonar_token</sonar.login> <!-- Reemplaza con tu token de autenticación de SonarCloud -->
     </properties>
 
     <build>
