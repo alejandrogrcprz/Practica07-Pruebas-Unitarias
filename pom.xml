@@ -21,10 +21,10 @@
         <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 
         <!-- Configuración de SonarCloud -->
-        <sonar.projectKey>your_project_key</sonar.projectKey>
-        <sonar.organization>your_organization</sonar.organization>
+        <sonar.projectKey>alejandrogrcprz_Practica07-Pruebas-Unitarias</sonar.projectKey>
+        <sonar.organization>alejandrogrcprz</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.login>your_sonar_token</sonar.login>
+        <sonar.login>00863da0cb0efd24645dc7d548d4dcbd3b232d91</sonar.login>
 
         <java.version>1.8</java.version>
         <log4j2.version>2.17.1</log4j2.version>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Flight.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ch13-continuous</a> &gt; <a href="index.source.html" class="el_package">es.ull.flights</a> &gt; <span class="el_source">Flight.java</span></div><h1>Flight.java</h1><pre class="source lang-java linenums">/*
+ * ========================================================================
+ *
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * ========================================================================
+ */
+package es.ull.flights;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import es.ull.passengers.Passenger;
+
+/**
+ * @class Flight
+ * @brief Clase que modela un vuelo con capacidad limitada de pasajeros.
+ */
+public class Flight {
+
+    /**
+     * @brief The flight number in the format AA1234.
+     */
+    private String flightNumber;
+
+    /**
+     * @brief The total number of seats available on the flight.
+     */
+    private int seats;
+
+    /**
+     * @brief A set of passengers currently on the flight.
+     */
+<span class="fc" id="L49">    private Set&lt;Passenger&gt; passengers = new HashSet&lt;&gt;();</span>
+
+    /**
+     * @brief Regular expression for validating flight numbers.
+     */
+<span class="fc" id="L54">    private static String flightNumberRegex = &quot;^[A-Z]{2}\\d{3,4}$&quot;;</span>
+
+    /**
+     * @brief Compiled pattern for flight number validation.
+     */
+<span class="fc" id="L59">    private static Pattern pattern = Pattern.compile(flightNumberRegex);</span>
+
+    /**
+     * @brief Constructor para inicializar un vuelo.
+     * @param flightNumber Número del vuelo. Debe cumplir con el formato definido por la expresión regular.
+     * @param seats Número máximo de asientos disponibles en el vuelo.
+     * @throws RuntimeException Si el número del vuelo no es válido.
+     */
+<span class="fc" id="L67">    public Flight(String flightNumber, int seats) {</span>
+<span class="fc" id="L68">        Matcher matcher = pattern.matcher(flightNumber);</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        if (!matcher.matches()) {</span>
+<span class="fc" id="L70">            throw new RuntimeException(&quot;Invalid flight number&quot;);</span>
+        }
+<span class="fc" id="L72">        this.flightNumber = flightNumber;</span>
+<span class="fc" id="L73">        this.seats = seats;</span>
+<span class="fc" id="L74">    }</span>
+
+    /**
+     * @brief Obtiene el número del vuelo.
+     * @return Número del vuelo como cadena.
+     */
+    public String getFlightNumber() {
+<span class="fc" id="L81">        return flightNumber;</span>
+    }
+
+    /**
+     * @brief Obtiene el número actual de pasajeros en el vuelo.
+     * @return Número de pasajeros en el vuelo.
+     */
+    public int getNumberOfPassengers() {
+<span class="fc" id="L89">        return passengers.size();</span>
+    }
+
+    /**
+     * @brief Añade un pasajero al vuelo.
+     * @param passenger Pasajero que se desea añadir al vuelo.
+     * @return true si el pasajero se añadió con éxito, false en caso contrario.
+     * @throws RuntimeException Si no hay suficientes asientos disponibles.
+     */
+    public boolean addPassenger(Passenger passenger) {
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        if (getNumberOfPassengers() &gt;= seats) {</span>
+<span class="fc" id="L100">            throw new RuntimeException(&quot;Not enough seats for flight &quot; + getFlightNumber());</span>
+        }
+<span class="fc" id="L102">        passenger.setFlight(this);</span>
+<span class="fc" id="L103">        return passengers.add(passenger);</span>
+    }
+
+    /**
+     * @brief Elimina un pasajero del vuelo.
+     * @param passenger Pasajero que se desea eliminar del vuelo.
+     * @return true si el pasajero se eliminó con éxito, false en caso contrario.
+     */
+    public boolean removePassenger(Passenger passenger) {
+<span class="fc" id="L112">        passenger.setFlight(null);</span>
+<span class="fc" id="L113">        return passengers.remove(passenger);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
